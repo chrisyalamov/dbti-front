@@ -1,0 +1,18 @@
+.spinner {
+    animation: spin 1s steps(12) infinite;
+}
+
+.spinner-smooth {
+    animation: spin 1s linear infinite;
+    animation-timing-function: cubic-bezier(0.445, 0.05, 0.55, 0.95);
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+

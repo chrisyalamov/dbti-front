@@ -1,0 +1,27 @@
+{
+  "files.watcherExclude": {
+    "**/routeTree.gen.ts": true
+  },
+  "search.exclude": {
+    "**/routeTree.gen.ts": true
+  },
+  "files.readonlyInclude": {
+    "**/routeTree.gen.ts": true
+  },
+  "explorer.sortOrder": "foldersNestsFiles",
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    "**/.gitignore": false,
+    "**/.wrangler": false,
+    "**/build/": false,
+    "**/functions/": false,
+    "**/load-context.ts": false,
+    "**/node_modules/": false
+  },
+  "explorerExclude.backup": {}
+}
