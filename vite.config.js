@@ -17,7 +17,7 @@ export default defineConfig({
     globals: true,
     environment: "jsdom",
   },
-  base: "/",
+  base: "/dbti-front/",
   server: {
     allowedHosts: ["dev-3000.chrisyalamov.space"],
   },
