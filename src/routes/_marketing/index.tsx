@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, Link } from '@tanstack/react-router'
 import audience from '../../public/audience.avif'
 import { FiArrowUpRight } from 'react-icons/fi'
 import interaction_log from '../../public/mockup-interaction-log.png'
@@ -64,10 +64,10 @@ function App() {
         <p className='text-lg font-medium shrink leading-tight text-balance'>
           Get people talking <span className='text-amber-300'>with Carder</span>.
         </p>
-        <button className='text-amber-300 h-8 px-3 leading-none border border-amber-300 rounded-md cursor-pointer hover:bg-amber-300 hover:text-black active:opacity-70 active:pt-0.5 font-semibold flex items-center gap-2 text-base shrink-0'>
+        <Link to="/auth/newAccount" className='text-amber-300 h-8 px-3 leading-none border border-amber-300 rounded-md cursor-pointer hover:bg-amber-300 hover:text-black active:opacity-70 active:pt-0.5 font-semibold flex items-center gap-2 text-base shrink-0'>
           Set up your first event
           <FiArrowUpRight />
-        </button>
+        </Link>
       </div>
 
       <div className='px-4 sm:px-12 md:px-24 lg:px-32 my-16 pb-5'>
