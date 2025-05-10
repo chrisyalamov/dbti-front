@@ -207,7 +207,9 @@ function RouteComponent() {
   // Check if the user belongs to any orgnisations
   return <RouteContext.Provider value={{ orgId }}>
     <div>
-      <Header />
+      <Header
+        organisation={orgDetails.data ?? undefined}
+      />
 
       <div className='max-w-7xl mx-auto px-8 my-10 mt-20'>
         <h1 className={`text-2xl font-medium ${orgDetails.isPending ? "opacity-50" : ""}`}>

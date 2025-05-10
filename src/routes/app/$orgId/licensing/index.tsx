@@ -113,10 +113,13 @@ function RouteComponent() {
 
   // Check if the user belongs to any orgnisations
   return <div>
-    <Header backNav={{
-      label: "Back to Organisation",
-      linkProps: { to: "/app/$orgId" }
-    }} />
+    <Header
+      backNav={{
+        label: "Back to Organisation",
+        linkProps: { to: "/app/$orgId" }
+      }}
+      organisation={orgDetails.data ?? undefined}
+    />
 
     <div className='max-w-7xl mx-auto px-8 my-10 mt-20 flex justify-between gap-10'>
       <div>

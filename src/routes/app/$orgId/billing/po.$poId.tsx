@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 import { HorizontalRule } from '../../../../components/Divider'
 import { Header } from '../../../../components/Header'
 import { Spinner } from '../../../../components/Spinner'
+import { orgDetails_queryOptionsObject } from '../../../../queries/orgDetails'
 
 export const Route = createFileRoute('/app/$orgId/billing/po/$poId')({
     component: RouteComponent,
@@ -13,6 +14,7 @@ function RouteComponent() {
     const { orgId, poId } = Route.useParams() as any
 
     const po = useQuery(po_queryOptionsObject(poId))
+    const orgDetails = useQuery(orgDetails_queryOptionsObject(orgId))
 
     if (po.isLoading || po.isPending || po.isRefetching) {
         return <Spinner />
@@ -32,6 +34,7 @@ function RouteComponent() {
                 label: "Back to billing",
                 linkProps: { to: "/app/$orgId/billing", params: { orgId } },
             }}
+            organisation={orgDetails.data ?? undefined}
         />
 
         <div className='my-10 gap-4 mx-auto max-w-7xl px-8'>

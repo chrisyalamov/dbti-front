@@ -15,7 +15,7 @@ const POStatus = ({ status }: { status: string }) => {
     uppercase bg-current/10 rounded-sm text-sm px-1.5
   `}>
     {status}
-    </span>
+  </span>
 }
 
 const PurchaseOrderBlock = (props: any) => {
@@ -30,16 +30,17 @@ const PurchaseOrderBlock = (props: any) => {
       px-1.5 -mx-1.5 rounded-sm py-0.5
     '
   >
-      <span className='font-[Share_Tech_Mono]'>{props.po.purchaseOrderId}</span>
-      <POStatus status={props.po.status} />
+    <span className='font-[Share_Tech_Mono]'>{props.po.purchaseOrderId}</span>
+    <POStatus status={props.po.status} />
   </Link>
 }
 
 function RouteComponent() {
   const { orgId } = Route.useParams() as any
+  const orgDetails = useQuery(orgPos_queryOptionsObject(orgId))
 
   const pos = useQuery(orgPos_queryOptionsObject(orgId))
-  if (pos.isLoading || pos.isPending || pos.isRefetching ) {
+  if (pos.isLoading || pos.isPending || pos.isRefetching) {
     return <Spinner />
   }
 
@@ -49,7 +50,9 @@ function RouteComponent() {
     <Header backNav={{
       label: "Back to Organisation",
       linkProps: { to: "/app/$orgId" }
-    }} />
+    }}
+      organisation={orgDetails.data ?? undefined}
+    />
 
     <div className='max-w-7xl mx-auto px-8 my-10 mt-20'>
       <h1 className="text-2xl font-medium mb-10">
@@ -59,8 +62,8 @@ function RouteComponent() {
         {
           pos.data?.length > 0
             ? pos.data.map((po: any) => (
-                <PurchaseOrderBlock key={po.purchaseOrderId} po={po} />
-              ))
+              <PurchaseOrderBlock key={po.purchaseOrderId} po={po} />
+            ))
             : <p className='text-sm text-gray-500'>No purchase orders found</p>
         }
       </div>

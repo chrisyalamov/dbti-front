@@ -7,6 +7,7 @@ import { IoArrowForward } from 'react-icons/io5'
 import { ErrorBoundary, type FallbackProps } from 'react-error-boundary'
 import { ErrorPanel } from '../../../../components/Error'
 import { CreateEventButton } from '../../../../components/CreateEventButton'
+import { orgDetails_queryOptionsObject } from '../../../../queries/orgDetails'
 
 export const Route = createFileRoute('/app/$orgId/events/')({
   component: RouteComponent,
@@ -80,12 +81,15 @@ function RouteComponent() {
   const { orgId } = Route.useParams()
 
   const events = useQuery(eventsForOrg_queryOptionsObject(orgId))
+  const orgDetails = useQuery(orgDetails_queryOptionsObject(orgId))
 
   return <div>
     <Header backNav={{
       label: "Back to Organisation",
       linkProps: { to: "/app/$orgId" }
-    }} />
+    }} 
+    organisation={orgDetails.data ?? undefined}
+    />
 
     <ErrorBoundary fallbackRender={ErrorFallback}>
 

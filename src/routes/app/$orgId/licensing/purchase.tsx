@@ -11,6 +11,7 @@ import { queryClient } from '../../../../main';
 import { RiDiscountPercentFill } from 'react-icons/ri';
 import { HorizontalRule } from '../../../../components/Divider';
 import { initiateCheckout } from '../../../../utils/checkout';
+import { orgDetails_queryOptionsObject } from '../../../../queries/orgDetails';
 
 
 export const Route = createFileRoute('/app/$orgId/licensing/purchase')({
@@ -332,6 +333,7 @@ function Cart({ cartItems, isLoading, uic, orgId }: CartProps) {
 function RouteComponent() {
   const cart = useQuery(cart_queryOptionsObject)
   const orgId = Route.useParams().orgId as string
+  const orgDetails = useQuery(orgDetails_queryOptionsObject(orgId))
 
   const { lineItemsWithTotals, uic } = cart.data || { lineItemsWithTotals: [], uic: {} }
 
@@ -358,10 +360,13 @@ function RouteComponent() {
   })
 
   return <div>
-    <Header backNav={{
-      label: "Back to Licensing",
-      linkProps: { to: "/app/$orgId/licensing" }
-    }} />
+    <Header
+      backNav={{
+        label: "Back to Licensing",
+        linkProps: { to: "/app/$orgId/licensing" }
+      }}
+      organisation={orgDetails.data ?? undefined}
+    />
 
     <div className='max-w-6xl mx-auto px-8 my-10 mt-20 flex justify-between gap-10 flex-col md:flex-row'>
       <div className='md:w-md'>

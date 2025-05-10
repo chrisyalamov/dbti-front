@@ -10,19 +10,24 @@ import { IoAdd, IoChevronForward } from "react-icons/io5";
 import { queryClient, router } from "../../../../main";
 import { ErrorBoundary, type FallbackProps } from "react-error-boundary";
 import { ErrorPanel } from "../../../../components/Error";
+import { orgDetails_queryOptionsObject } from "../../../../queries/orgDetails";
 
 export const Route = createFileRoute("/app/$orgId/events/$eventId/")({
   component: RouteComponent,
 });
 
-const LocalHeader = () => (
-  <Header
+const LocalHeader = () => {
+  const { orgId } = Route.useParams();
+  const orgDetails = useQuery(orgDetails_queryOptionsObject(orgId));
+
+  return <Header
     backNav={{
-      label: "Back to Events",
+      label: "Back to events",
       linkProps: { to: "/app/$orgId/events" },
     }}
+    organisation={orgDetails.data ?? undefined}
   />
-);
+};
 
 type EventPropsProps = {
   event: {

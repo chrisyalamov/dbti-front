@@ -6,6 +6,13 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { authState_queryOptionsObject } from "../queries/authState";
 import { Spinner } from "./Spinner";
 import { queryClient, router } from "../main";
+import { PiCaretUpDownFill } from "react-icons/pi";
+
+type Organisation = {
+    organisationId: string;
+    name: string;
+    key: string;
+}
 
 type HeaderProps = {
     title?: string;
@@ -14,6 +21,7 @@ type HeaderProps = {
         linkProps: LinkProps
     };
     displayAuthBadge?: boolean;
+    organisation?: Organisation
 }
 
 type AuthStateUser = {
@@ -25,7 +33,7 @@ type AuthStateUser = {
 /**
  * Panel that appears when user badge is clicked
  */
-const DropdownPanel = () => {
+const DropdownPanel = ({ organisation }: { organisation?: Organisation }) => {
     const logOutMutation = useMutation({
         mutationFn: async () => {
             await fetch(`${import.meta.env.VITE_BACKEND_URL}/cais/auth/logout`, {
@@ -53,12 +61,26 @@ const DropdownPanel = () => {
     }
 
     return <form className="flex flex-col text-sm py-1" onSubmit={handleSubmit}>
+        {
+            organisation
+                ? <Link
+                    to="/auth/orgSelector"
+                    className="flex items-center justify-between px-4 py-1 gap-2 min-w-52 hover:bg-neutral-400/20 active:bg-neutral-400/10 cursor-pointer border-b-hairline border-neutral-500/20"
+                >
+                    <p className="text-sm">
+                        <span className="leading-none">{organisation.name}</span><br />
+                        <span className="text-xs opacity-50 leading-none">Organisation</span>
+                    </p>
+                    <PiCaretUpDownFill />
+                </Link>
+                : null
+        }
         <button className="flex items-center px-4 py-1 gap-2 min-w-52 hover:bg-neutral-400/20 active:bg-neutral-400/10 cursor-pointer">
             {
                 logOutMutation.isPending
                     ? <Spinner />
                     : <>
-                        <IoExitOutline  />
+                        <IoExitOutline />
                         Sign out
                     </>
             }
@@ -70,7 +92,6 @@ const DropdownPanel = () => {
  * Contents of the user badge
  */
 const UserBadge = (user: AuthStateUser) => {
-    console.log(user);
     return <div className="flex items-center gap-2">
         <div className="size-6 rounded-full bg-neutral-500/15 flex items-center justify-center">
             <span className="text-neutral-400 text-xs">{user?.fullName[0]}</span>
@@ -97,7 +118,7 @@ const UnauthActions = () => {
  * Layout block that either shows the login button or the currently 
  * logged in user
  */
-const AuthBlock = () => {
+const AuthBlock = ({ organisation }: { organisation?: Organisation }) => {
     const authState = useQuery(authState_queryOptionsObject)
     const [open, setOpen] = useState(false);
 
@@ -134,7 +155,7 @@ const AuthBlock = () => {
             </button>
         }
 
-        panel={<DropdownPanel />}
+        panel={<DropdownPanel organisation={organisation} />}
     />
 
 }
@@ -162,7 +183,7 @@ export const Header = (props: HeaderProps) => {
         <div className="grow" />
         {
             displayAuthBadge
-                ? <AuthBlock />
+                ? <AuthBlock organisation={props.organisation} />
                 : null
         }
 

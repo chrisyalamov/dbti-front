@@ -7,19 +7,24 @@ import { findErrorsForField } from "../../../../utils/forms";
 import { ErrorBoundary, type FallbackProps } from "react-error-boundary";
 import { ErrorPanel } from "../../../../components/Error";
 import { attendeeProfile_queryOptionsObject } from "../../../../queries/attendeeProfile";
+import { orgDetails_queryOptionsObject } from "../../../../queries/orgDetails";
 
 export const Route = createFileRoute("/app/$orgId/events/$eventId/attendees/$attendeeId")({
   component: RouteComponent,
 });
 
-const LocalHeader = () => (
-  <Header
+const LocalHeader = () => {
+  const { orgId } = Route.useParams();
+  const orgDetails = useQuery(orgDetails_queryOptionsObject(orgId));
+
+  return <Header
     backNav={{
       label: "Back to event",
       linkProps: { to: "/app/$orgId/events/$eventId" },
     }}
+    organisation={orgDetails.data ?? undefined}
   />
-);
+  };
 
 type AttendeePropsProps = {
   attendee: {

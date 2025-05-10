@@ -6,6 +6,7 @@ import { useMutation, useQuery } from '@tanstack/react-query'
 import { IoAttachOutline } from 'react-icons/io5'
 import { queryClient } from '../../../../main'
 import { TbUnlink } from 'react-icons/tb'
+import { orgDetails_queryOptionsObject } from '../../../../queries/orgDetails'
 
 export const Route = createFileRoute(
   '/app/$orgId/licensing/license/$licenseId',
@@ -77,7 +78,8 @@ const UnassignButton = ({ licenseId, attendeeProfileId, status }: UnassignButton
 
 function RouteComponent() {
   const { orgId, licenseId } = Route.useParams() as any
-
+  const orgDetails = useQuery(orgDetails_queryOptionsObject(orgId))
+  
   const license = useQuery({
     ...license_queryOptionsObject(licenseId, orgId),
     throwOnError: true,
@@ -97,6 +99,7 @@ function RouteComponent() {
         label: "Back to licensing dashboard",
         linkProps: { to: "/app/$orgId/licensing", params: { orgId } },
       }}
+      organisation={orgDetails.data ?? undefined}
     />
     <div className='my-32 flex items-center flex-col'>
       <div className='bg-amber-300 rounded-sm px-5 py-2'>
