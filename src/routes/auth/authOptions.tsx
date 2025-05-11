@@ -33,7 +33,6 @@ const AuthOptions = ({ email, options, uic }: AuthOptionsProps) => {
 
         const state = await queryClient.fetchQuery(authState_queryOptionsObject)
 
-        console.log(state)
         state?.accountStatus !== "active"
 
         if (state?.accountStatus !== "active") {
@@ -130,6 +129,16 @@ const UnknownError = ({ message }: UnknownErrorProps) => {
 function RouteComponent() {
     const search = Route.useSearch()
     const authOptions = useQuery(authOptions_queryOptionsObject(search.email))
+    const authState = useQuery(authState_queryOptionsObject)
+
+    if (authState.isSuccess) {
+        if (authState.data.userId) {
+          router.navigate({
+            to: '/auth/orgSelector',
+          })
+        }
+      }
+      
 
     return <div className="flex flex-col items-start justify-center stretch w-full">
         {

@@ -2,6 +2,8 @@ import { createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
 import { router } from '../../main'
 import { z } from 'zod'
+import { useQuery } from '@tanstack/react-query'
+import { authState_queryOptionsObject } from '../../queries/authState'
 
 export const Route = createFileRoute('/auth/login')({
   component: RouteComponent,
@@ -10,6 +12,15 @@ export const Route = createFileRoute('/auth/login')({
 
 function RouteComponent() {
   const [err, setErr] = useState<string | null>(null)
+  const authState = useQuery(authState_queryOptionsObject)
+
+  if (authState.isSuccess) {
+    if (authState.data.userId) {
+      router.navigate({
+        to: '/auth/orgSelector',
+      })
+    }
+  }
 
   const formAction = async (data: FormData) => {
     const email = z.string().email().safeParse(data.get('email'))

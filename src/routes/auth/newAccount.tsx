@@ -1,10 +1,11 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { IoArrowForwardCircle, IoCheckmarkCircle, IoCheckmarkCircleOutline } from 'react-icons/io5'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { LabeledField } from '../../components/inputs/LabeledField'
 import { findErrorsForField } from '../../utils/forms'
 import { router } from '../../main'
 import { ErrorPanel } from '../../components/Error'
+import { authState_queryOptionsObject } from '../../queries/authState'
 
 export const Route = createFileRoute('/auth/newAccount')({
   component: RouteComponent,
@@ -76,6 +77,8 @@ function TermsAndConditionsCheckbox({ error }: { error: Error | null }) {
 }
 
 function RouteComponent() {
+  const authState = useQuery(authState_queryOptionsObject)
+  
   const initiateRegistrationOperation = useMutation({
     mutationKey: ['initiateRegistration'],
     mutationFn: async (data: FormData) => {
@@ -116,9 +119,15 @@ function RouteComponent() {
     initiateRegistrationOperation.mutate(data)
   }
 
-  const { isPending, isError, error }  = initiateRegistrationOperation
+  if (authState.isSuccess) {
+    if (authState.data.userId) {
+      router.navigate({
+        to: '/auth/orgSelector',
+      })
+    }
+  }
 
-  
+  const { isPending, isError, error }  = initiateRegistrationOperation
 
   return <div className="flex flex-col items-start justify-center stretch w-full">
     <h1 className="text-2xl font-medium">Create account</h1>
