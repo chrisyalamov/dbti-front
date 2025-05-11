@@ -12,7 +12,6 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as TermsImport } from './routes/terms'
-import { Route as SignupImport } from './routes/signup'
 import { Route as LandingImport } from './routes/landing'
 import { Route as AuthRouteImport } from './routes/auth/route'
 import { Route as AppRouteImport } from './routes/app/route'
@@ -28,12 +27,9 @@ import { Route as MarketingPricingImport } from './routes/_marketing/pricing'
 import { Route as AppOrgIdRouteImport } from './routes/app/$orgId/route'
 import { Route as AppOrgIdIndexImport } from './routes/app/$orgId/index'
 import { Route as AuthAuthOrgSelectorImport } from './routes/auth/_auth.orgSelector'
-import { Route as AppOrgIdSettingsImport } from './routes/app/$orgId/settings'
-import { Route as AppOrgIdUsersIndexImport } from './routes/app/$orgId/users/index'
 import { Route as AppOrgIdLicensingIndexImport } from './routes/app/$orgId/licensing/index'
 import { Route as AppOrgIdEventsIndexImport } from './routes/app/$orgId/events/index'
 import { Route as AppOrgIdBillingIndexImport } from './routes/app/$orgId/billing/index'
-import { Route as AppOrgIdUsersUseridImport } from './routes/app/$orgId/users/$userid'
 import { Route as AppOrgIdLicensingSuccessImport } from './routes/app/$orgId/licensing/success'
 import { Route as AppOrgIdLicensingPurchaseImport } from './routes/app/$orgId/licensing/purchase'
 import { Route as AppOrgIdLicensingEnrolmentsImport } from './routes/app/$orgId/licensing/enrolments'
@@ -52,12 +48,6 @@ import { Route as AppOrgIdEventsEventIdAttendeesAttendeeIdAssignImport } from '.
 const TermsRoute = TermsImport.update({
   id: '/terms',
   path: '/terms',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const SignupRoute = SignupImport.update({
-  id: '/signup',
-  path: '/signup',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -149,18 +139,6 @@ const AuthAuthOrgSelectorRoute = AuthAuthOrgSelectorImport.update({
   getParentRoute: () => AuthAuthRoute,
 } as any)
 
-const AppOrgIdSettingsRoute = AppOrgIdSettingsImport.update({
-  id: '/settings',
-  path: '/settings',
-  getParentRoute: () => AppOrgIdRouteRoute,
-} as any)
-
-const AppOrgIdUsersIndexRoute = AppOrgIdUsersIndexImport.update({
-  id: '/users/',
-  path: '/users/',
-  getParentRoute: () => AppOrgIdRouteRoute,
-} as any)
-
 const AppOrgIdLicensingIndexRoute = AppOrgIdLicensingIndexImport.update({
   id: '/licensing/',
   path: '/licensing/',
@@ -176,12 +154,6 @@ const AppOrgIdEventsIndexRoute = AppOrgIdEventsIndexImport.update({
 const AppOrgIdBillingIndexRoute = AppOrgIdBillingIndexImport.update({
   id: '/billing/',
   path: '/billing/',
-  getParentRoute: () => AppOrgIdRouteRoute,
-} as any)
-
-const AppOrgIdUsersUseridRoute = AppOrgIdUsersUseridImport.update({
-  id: '/users/$userid',
-  path: '/users/$userid',
   getParentRoute: () => AppOrgIdRouteRoute,
 } as any)
 
@@ -298,13 +270,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LandingImport
       parentRoute: typeof rootRoute
     }
-    '/signup': {
-      id: '/signup'
-      path: '/signup'
-      fullPath: '/signup'
-      preLoaderRoute: typeof SignupImport
-      parentRoute: typeof rootRoute
-    }
     '/terms': {
       id: '/terms'
       path: '/terms'
@@ -375,13 +340,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MarketingIndexImport
       parentRoute: typeof MarketingRouteImport
     }
-    '/app/$orgId/settings': {
-      id: '/app/$orgId/settings'
-      path: '/settings'
-      fullPath: '/app/$orgId/settings'
-      preLoaderRoute: typeof AppOrgIdSettingsImport
-      parentRoute: typeof AppOrgIdRouteImport
-    }
     '/auth/_auth/orgSelector': {
       id: '/auth/_auth/orgSelector'
       path: '/orgSelector'
@@ -424,13 +382,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppOrgIdLicensingSuccessImport
       parentRoute: typeof AppOrgIdRouteImport
     }
-    '/app/$orgId/users/$userid': {
-      id: '/app/$orgId/users/$userid'
-      path: '/users/$userid'
-      fullPath: '/app/$orgId/users/$userid'
-      preLoaderRoute: typeof AppOrgIdUsersUseridImport
-      parentRoute: typeof AppOrgIdRouteImport
-    }
     '/app/$orgId/billing/': {
       id: '/app/$orgId/billing/'
       path: '/billing'
@@ -450,13 +401,6 @@ declare module '@tanstack/react-router' {
       path: '/licensing'
       fullPath: '/app/$orgId/licensing'
       preLoaderRoute: typeof AppOrgIdLicensingIndexImport
-      parentRoute: typeof AppOrgIdRouteImport
-    }
-    '/app/$orgId/users/': {
-      id: '/app/$orgId/users/'
-      path: '/users'
-      fullPath: '/app/$orgId/users'
-      preLoaderRoute: typeof AppOrgIdUsersIndexImport
       parentRoute: typeof AppOrgIdRouteImport
     }
     '/app/$orgId/billing/po/$poId': {
@@ -570,17 +514,14 @@ const AppOrgIdEventsEventIdAttendeesAttendeeIdRouteWithChildren =
   )
 
 interface AppOrgIdRouteRouteChildren {
-  AppOrgIdSettingsRoute: typeof AppOrgIdSettingsRoute
   AppOrgIdIndexRoute: typeof AppOrgIdIndexRoute
   AppOrgIdLicensingCancelRoute: typeof AppOrgIdLicensingCancelRoute
   AppOrgIdLicensingEnrolmentsRoute: typeof AppOrgIdLicensingEnrolmentsRoute
   AppOrgIdLicensingPurchaseRoute: typeof AppOrgIdLicensingPurchaseRouteWithChildren
   AppOrgIdLicensingSuccessRoute: typeof AppOrgIdLicensingSuccessRoute
-  AppOrgIdUsersUseridRoute: typeof AppOrgIdUsersUseridRoute
   AppOrgIdBillingIndexRoute: typeof AppOrgIdBillingIndexRoute
   AppOrgIdEventsIndexRoute: typeof AppOrgIdEventsIndexRoute
   AppOrgIdLicensingIndexRoute: typeof AppOrgIdLicensingIndexRoute
-  AppOrgIdUsersIndexRoute: typeof AppOrgIdUsersIndexRoute
   AppOrgIdBillingPoPoIdRoute: typeof AppOrgIdBillingPoPoIdRoute
   AppOrgIdLicensingLicenseLicenseIdRoute: typeof AppOrgIdLicensingLicenseLicenseIdRoute
   AppOrgIdEventsEventIdIndexRoute: typeof AppOrgIdEventsEventIdIndexRoute
@@ -588,17 +529,14 @@ interface AppOrgIdRouteRouteChildren {
 }
 
 const AppOrgIdRouteRouteChildren: AppOrgIdRouteRouteChildren = {
-  AppOrgIdSettingsRoute: AppOrgIdSettingsRoute,
   AppOrgIdIndexRoute: AppOrgIdIndexRoute,
   AppOrgIdLicensingCancelRoute: AppOrgIdLicensingCancelRoute,
   AppOrgIdLicensingEnrolmentsRoute: AppOrgIdLicensingEnrolmentsRoute,
   AppOrgIdLicensingPurchaseRoute: AppOrgIdLicensingPurchaseRouteWithChildren,
   AppOrgIdLicensingSuccessRoute: AppOrgIdLicensingSuccessRoute,
-  AppOrgIdUsersUseridRoute: AppOrgIdUsersUseridRoute,
   AppOrgIdBillingIndexRoute: AppOrgIdBillingIndexRoute,
   AppOrgIdEventsIndexRoute: AppOrgIdEventsIndexRoute,
   AppOrgIdLicensingIndexRoute: AppOrgIdLicensingIndexRoute,
-  AppOrgIdUsersIndexRoute: AppOrgIdUsersIndexRoute,
   AppOrgIdBillingPoPoIdRoute: AppOrgIdBillingPoPoIdRoute,
   AppOrgIdLicensingLicenseLicenseIdRoute:
     AppOrgIdLicensingLicenseLicenseIdRoute,
@@ -662,7 +600,6 @@ export interface FileRoutesByFullPath {
   '/app': typeof AppRouteRouteWithChildren
   '/auth': typeof AuthAuthRouteWithChildren
   '/landing': typeof LandingRoute
-  '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
   '/app/$orgId': typeof AppOrgIdRouteRouteWithChildren
   '/pricing': typeof MarketingPricingRoute
@@ -672,18 +609,15 @@ export interface FileRoutesByFullPath {
   '/auth/login': typeof AuthLoginRoute
   '/auth/newAccount': typeof AuthNewAccountRoute
   '/': typeof MarketingIndexRoute
-  '/app/$orgId/settings': typeof AppOrgIdSettingsRoute
   '/auth/orgSelector': typeof AuthAuthOrgSelectorRoute
   '/app/$orgId/': typeof AppOrgIdIndexRoute
   '/app/$orgId/licensing/cancel': typeof AppOrgIdLicensingCancelRoute
   '/app/$orgId/licensing/enrolments': typeof AppOrgIdLicensingEnrolmentsRoute
   '/app/$orgId/licensing/purchase': typeof AppOrgIdLicensingPurchaseRouteWithChildren
   '/app/$orgId/licensing/success': typeof AppOrgIdLicensingSuccessRoute
-  '/app/$orgId/users/$userid': typeof AppOrgIdUsersUseridRoute
   '/app/$orgId/billing': typeof AppOrgIdBillingIndexRoute
   '/app/$orgId/events': typeof AppOrgIdEventsIndexRoute
   '/app/$orgId/licensing': typeof AppOrgIdLicensingIndexRoute
-  '/app/$orgId/users': typeof AppOrgIdUsersIndexRoute
   '/app/$orgId/billing/po/$poId': typeof AppOrgIdBillingPoPoIdRoute
   '/app/$orgId/licensing/license/$licenseId': typeof AppOrgIdLicensingLicenseLicenseIdRoute
   '/app/$orgId/events/$eventId': typeof AppOrgIdEventsEventIdIndexRoute
@@ -698,7 +632,6 @@ export interface FileRoutesByTo {
   '/app': typeof AppRouteRouteWithChildren
   '/auth': typeof AuthAuthRouteWithChildren
   '/landing': typeof LandingRoute
-  '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
   '/pricing': typeof MarketingPricingRoute
   '/app/newOrg': typeof AppNewOrgRoute
@@ -707,17 +640,14 @@ export interface FileRoutesByTo {
   '/auth/login': typeof AuthLoginRoute
   '/auth/newAccount': typeof AuthNewAccountRoute
   '/': typeof MarketingIndexRoute
-  '/app/$orgId/settings': typeof AppOrgIdSettingsRoute
   '/auth/orgSelector': typeof AuthAuthOrgSelectorRoute
   '/app/$orgId': typeof AppOrgIdIndexRoute
   '/app/$orgId/licensing/cancel': typeof AppOrgIdLicensingCancelRoute
   '/app/$orgId/licensing/enrolments': typeof AppOrgIdLicensingEnrolmentsRoute
   '/app/$orgId/licensing/success': typeof AppOrgIdLicensingSuccessRoute
-  '/app/$orgId/users/$userid': typeof AppOrgIdUsersUseridRoute
   '/app/$orgId/billing': typeof AppOrgIdBillingIndexRoute
   '/app/$orgId/events': typeof AppOrgIdEventsIndexRoute
   '/app/$orgId/licensing': typeof AppOrgIdLicensingIndexRoute
-  '/app/$orgId/users': typeof AppOrgIdUsersIndexRoute
   '/app/$orgId/billing/po/$poId': typeof AppOrgIdBillingPoPoIdRoute
   '/app/$orgId/licensing/license/$licenseId': typeof AppOrgIdLicensingLicenseLicenseIdRoute
   '/app/$orgId/events/$eventId': typeof AppOrgIdEventsEventIdIndexRoute
@@ -733,7 +663,6 @@ export interface FileRoutesById {
   '/app': typeof AppRouteRouteWithChildren
   '/auth': typeof AuthRouteRouteWithChildren
   '/landing': typeof LandingRoute
-  '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
   '/app/$orgId': typeof AppOrgIdRouteRouteWithChildren
   '/_marketing/pricing': typeof MarketingPricingRoute
@@ -744,18 +673,15 @@ export interface FileRoutesById {
   '/auth/login': typeof AuthLoginRoute
   '/auth/newAccount': typeof AuthNewAccountRoute
   '/_marketing/': typeof MarketingIndexRoute
-  '/app/$orgId/settings': typeof AppOrgIdSettingsRoute
   '/auth/_auth/orgSelector': typeof AuthAuthOrgSelectorRoute
   '/app/$orgId/': typeof AppOrgIdIndexRoute
   '/app/$orgId/licensing/cancel': typeof AppOrgIdLicensingCancelRoute
   '/app/$orgId/licensing/enrolments': typeof AppOrgIdLicensingEnrolmentsRoute
   '/app/$orgId/licensing/purchase': typeof AppOrgIdLicensingPurchaseRouteWithChildren
   '/app/$orgId/licensing/success': typeof AppOrgIdLicensingSuccessRoute
-  '/app/$orgId/users/$userid': typeof AppOrgIdUsersUseridRoute
   '/app/$orgId/billing/': typeof AppOrgIdBillingIndexRoute
   '/app/$orgId/events/': typeof AppOrgIdEventsIndexRoute
   '/app/$orgId/licensing/': typeof AppOrgIdLicensingIndexRoute
-  '/app/$orgId/users/': typeof AppOrgIdUsersIndexRoute
   '/app/$orgId/billing/po/$poId': typeof AppOrgIdBillingPoPoIdRoute
   '/app/$orgId/licensing/license/$licenseId': typeof AppOrgIdLicensingLicenseLicenseIdRoute
   '/app/$orgId/events/$eventId/': typeof AppOrgIdEventsEventIdIndexRoute
@@ -773,7 +699,6 @@ export interface FileRouteTypes {
     | '/app'
     | '/auth'
     | '/landing'
-    | '/signup'
     | '/terms'
     | '/app/$orgId'
     | '/pricing'
@@ -783,18 +708,15 @@ export interface FileRouteTypes {
     | '/auth/login'
     | '/auth/newAccount'
     | '/'
-    | '/app/$orgId/settings'
     | '/auth/orgSelector'
     | '/app/$orgId/'
     | '/app/$orgId/licensing/cancel'
     | '/app/$orgId/licensing/enrolments'
     | '/app/$orgId/licensing/purchase'
     | '/app/$orgId/licensing/success'
-    | '/app/$orgId/users/$userid'
     | '/app/$orgId/billing'
     | '/app/$orgId/events'
     | '/app/$orgId/licensing'
-    | '/app/$orgId/users'
     | '/app/$orgId/billing/po/$poId'
     | '/app/$orgId/licensing/license/$licenseId'
     | '/app/$orgId/events/$eventId'
@@ -808,7 +730,6 @@ export interface FileRouteTypes {
     | '/app'
     | '/auth'
     | '/landing'
-    | '/signup'
     | '/terms'
     | '/pricing'
     | '/app/newOrg'
@@ -817,17 +738,14 @@ export interface FileRouteTypes {
     | '/auth/login'
     | '/auth/newAccount'
     | '/'
-    | '/app/$orgId/settings'
     | '/auth/orgSelector'
     | '/app/$orgId'
     | '/app/$orgId/licensing/cancel'
     | '/app/$orgId/licensing/enrolments'
     | '/app/$orgId/licensing/success'
-    | '/app/$orgId/users/$userid'
     | '/app/$orgId/billing'
     | '/app/$orgId/events'
     | '/app/$orgId/licensing'
-    | '/app/$orgId/users'
     | '/app/$orgId/billing/po/$poId'
     | '/app/$orgId/licensing/license/$licenseId'
     | '/app/$orgId/events/$eventId'
@@ -841,7 +759,6 @@ export interface FileRouteTypes {
     | '/app'
     | '/auth'
     | '/landing'
-    | '/signup'
     | '/terms'
     | '/app/$orgId'
     | '/_marketing/pricing'
@@ -852,18 +769,15 @@ export interface FileRouteTypes {
     | '/auth/login'
     | '/auth/newAccount'
     | '/_marketing/'
-    | '/app/$orgId/settings'
     | '/auth/_auth/orgSelector'
     | '/app/$orgId/'
     | '/app/$orgId/licensing/cancel'
     | '/app/$orgId/licensing/enrolments'
     | '/app/$orgId/licensing/purchase'
     | '/app/$orgId/licensing/success'
-    | '/app/$orgId/users/$userid'
     | '/app/$orgId/billing/'
     | '/app/$orgId/events/'
     | '/app/$orgId/licensing/'
-    | '/app/$orgId/users/'
     | '/app/$orgId/billing/po/$poId'
     | '/app/$orgId/licensing/license/$licenseId'
     | '/app/$orgId/events/$eventId/'
@@ -880,7 +794,6 @@ export interface RootRouteChildren {
   AppRouteRoute: typeof AppRouteRouteWithChildren
   AuthRouteRoute: typeof AuthRouteRouteWithChildren
   LandingRoute: typeof LandingRoute
-  SignupRoute: typeof SignupRoute
   TermsRoute: typeof TermsRoute
 }
 
@@ -889,7 +802,6 @@ const rootRouteChildren: RootRouteChildren = {
   AppRouteRoute: AppRouteRouteWithChildren,
   AuthRouteRoute: AuthRouteRouteWithChildren,
   LandingRoute: LandingRoute,
-  SignupRoute: SignupRoute,
   TermsRoute: TermsRoute,
 }
 
@@ -907,7 +819,6 @@ export const routeTree = rootRoute
         "/app",
         "/auth",
         "/landing",
-        "/signup",
         "/terms"
       ]
     },
@@ -938,9 +849,6 @@ export const routeTree = rootRoute
     "/landing": {
       "filePath": "landing.tsx"
     },
-    "/signup": {
-      "filePath": "signup.tsx"
-    },
     "/terms": {
       "filePath": "terms.tsx"
     },
@@ -948,17 +856,14 @@ export const routeTree = rootRoute
       "filePath": "app/$orgId/route.tsx",
       "parent": "/app",
       "children": [
-        "/app/$orgId/settings",
         "/app/$orgId/",
         "/app/$orgId/licensing/cancel",
         "/app/$orgId/licensing/enrolments",
         "/app/$orgId/licensing/purchase",
         "/app/$orgId/licensing/success",
-        "/app/$orgId/users/$userid",
         "/app/$orgId/billing/",
         "/app/$orgId/events/",
         "/app/$orgId/licensing/",
-        "/app/$orgId/users/",
         "/app/$orgId/billing/po/$poId",
         "/app/$orgId/licensing/license/$licenseId",
         "/app/$orgId/events/$eventId/",
@@ -1000,10 +905,6 @@ export const routeTree = rootRoute
       "filePath": "_marketing/index.tsx",
       "parent": "/_marketing"
     },
-    "/app/$orgId/settings": {
-      "filePath": "app/$orgId/settings.tsx",
-      "parent": "/app/$orgId"
-    },
     "/auth/_auth/orgSelector": {
       "filePath": "auth/_auth.orgSelector.tsx",
       "parent": "/auth/_auth"
@@ -1032,10 +933,6 @@ export const routeTree = rootRoute
       "filePath": "app/$orgId/licensing/success.tsx",
       "parent": "/app/$orgId"
     },
-    "/app/$orgId/users/$userid": {
-      "filePath": "app/$orgId/users/$userid.tsx",
-      "parent": "/app/$orgId"
-    },
     "/app/$orgId/billing/": {
       "filePath": "app/$orgId/billing/index.tsx",
       "parent": "/app/$orgId"
@@ -1046,10 +943,6 @@ export const routeTree = rootRoute
     },
     "/app/$orgId/licensing/": {
       "filePath": "app/$orgId/licensing/index.tsx",
-      "parent": "/app/$orgId"
-    },
-    "/app/$orgId/users/": {
-      "filePath": "app/$orgId/users/index.tsx",
       "parent": "/app/$orgId"
     },
     "/app/$orgId/billing/po/$poId": {
